@@ -14,6 +14,7 @@
 		92A794042C01311F0090AB8C /* LaunchScreen.storyboard in Resources */ = {isa = PBXBuildFile; fileRef = 92A794022C01311F0090AB8C /* LaunchScreen.storyboard */; };
 		92A7940E2C0133100090AB8C /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A7940D2C0133100090AB8C /* FeedViewModel.swift */; };
 		92A794102C0133850090AB8C /* Bindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A7940F2C0133850090AB8C /* Bindable.swift */; };
+		92A794122C0139F20090AB8C /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A794112C0139F20090AB8C /* FeedView.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -26,6 +27,7 @@
 		92A794052C01311F0090AB8C /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		92A7940D2C0133100090AB8C /* FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModel.swift; sourceTree = "<group>"; };
 		92A7940F2C0133850090AB8C /* Bindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bindable.swift; sourceTree = "<group>"; };
+		92A794112C0139F20090AB8C /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -80,6 +82,7 @@
 			isa = PBXGroup;
 			children = (
 				92A793FB2C01311E0090AB8C /* FeedViewController.swift */,
+				92A794112C0139F20090AB8C /* FeedView.swift */,
 				92A7940D2C0133100090AB8C /* FeedViewModel.swift */,
 				92A7940F2C0133850090AB8C /* Bindable.swift */,
 			);
@@ -159,6 +162,7 @@
 				92A794102C0133850090AB8C /* Bindable.swift in Sources */,
 				92A793FC2C01311E0090AB8C /* FeedViewController.swift in Sources */,
 				92A793F82C01311E0090AB8C /* AppDelegate.swift in Sources */,
+				92A794122C0139F20090AB8C /* FeedView.swift in Sources */,
 				92A7940E2C0133100090AB8C /* FeedViewModel.swift in Sources */,
 				92A793FA2C01311E0090AB8C /* SceneDelegate.swift in Sources */,
 			);
@@ -310,7 +314,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",
@@ -337,7 +341,7 @@
 				INFOPLIST_KEY_UIApplicationSupportsIndirectInputEvents = YES;
 				INFOPLIST_KEY_UILaunchStoryboardName = LaunchScreen;
 				INFOPLIST_KEY_UISupportedInterfaceOrientations = UIInterfaceOrientationPortrait;
-				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationLandscapeLeft UIInterfaceOrientationLandscapeRight UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
+				INFOPLIST_KEY_UISupportedInterfaceOrientations_iPad = "UIInterfaceOrientationPortrait UIInterfaceOrientationPortraitUpsideDown";
 				LD_RUNPATH_SEARCH_PATHS = (
 					"$(inherited)",
 					"@executable_path/Frameworks",

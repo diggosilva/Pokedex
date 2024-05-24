@@ -9,11 +9,18 @@ import UIKit
 
 class FeedViewController: UIViewController {
     
+    let feedView = FeedView()
     let viewModel = FeedViewModel()
+    
+    override func loadView() {
+        super.loadView()
+        view = feedView
+    }
 
     override func viewDidLoad() {
         super.viewDidLoad()
         setNavBar()
+        setDelegatesAndDataSource()
         handleStates()
         viewModel.loadData()
     }
@@ -21,6 +28,11 @@ class FeedViewController: UIViewController {
     private func setNavBar() {
         view.backgroundColor = .systemBackground
         title = "Pokedex"
+    }
+    
+    private func setDelegatesAndDataSource() {
+        feedView.collectionView.delegate = self
+        feedView.collectionView.dataSource = self
     }
     
     private func handleStates() {
@@ -46,5 +58,18 @@ class FeedViewController: UIViewController {
     
     private func showErrorState() {
         
+    }
+}
+
+extension FeedViewController: UICollectionViewDelegate, UICollectionViewDataSource {
+    func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
+        return 14
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
+        let cell = collectionView.dequeueReusableCell(withReuseIdentifier: "cell", for: indexPath)
+        cell.backgroundColor = .systemPink
+        cell.layer.cornerRadius = 10
+        return cell
     }
 }
