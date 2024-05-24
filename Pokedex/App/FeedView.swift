@@ -24,7 +24,7 @@ class FeedView: UIView {
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
-        collectionView.register(UICollectionViewCell.self, forCellWithReuseIdentifier: "cell")
+        collectionView.register(FeedCell.self, forCellWithReuseIdentifier: FeedCell.identifier)
         return collectionView
     }()
     

@@ -15,6 +15,7 @@
 		92A7940E2C0133100090AB8C /* FeedViewModel.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A7940D2C0133100090AB8C /* FeedViewModel.swift */; };
 		92A794102C0133850090AB8C /* Bindable.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A7940F2C0133850090AB8C /* Bindable.swift */; };
 		92A794122C0139F20090AB8C /* FeedView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A794112C0139F20090AB8C /* FeedView.swift */; };
+		92A794142C014BBD0090AB8C /* FeedCell.swift in Sources */ = {isa = PBXBuildFile; fileRef = 92A794132C014BBD0090AB8C /* FeedCell.swift */; };
 /* End PBXBuildFile section */
 
 /* Begin PBXFileReference section */
@@ -28,6 +29,7 @@
 		92A7940D2C0133100090AB8C /* FeedViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModel.swift; sourceTree = "<group>"; };
 		92A7940F2C0133850090AB8C /* Bindable.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Bindable.swift; sourceTree = "<group>"; };
 		92A794112C0139F20090AB8C /* FeedView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedView.swift; sourceTree = "<group>"; };
+		92A794132C014BBD0090AB8C /* FeedCell.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedCell.swift; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
 /* Begin PBXFrameworksBuildPhase section */
@@ -83,6 +85,7 @@
 			children = (
 				92A793FB2C01311E0090AB8C /* FeedViewController.swift */,
 				92A794112C0139F20090AB8C /* FeedView.swift */,
+				92A794132C014BBD0090AB8C /* FeedCell.swift */,
 				92A7940D2C0133100090AB8C /* FeedViewModel.swift */,
 				92A7940F2C0133850090AB8C /* Bindable.swift */,
 			);
@@ -159,6 +162,7 @@
 			isa = PBXSourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				92A794142C014BBD0090AB8C /* FeedCell.swift in Sources */,
 				92A794102C0133850090AB8C /* Bindable.swift in Sources */,
 				92A793FC2C01311E0090AB8C /* FeedViewController.swift in Sources */,
 				92A793F82C01311E0090AB8C /* AppDelegate.swift in Sources */,
