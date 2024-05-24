@@ -13,17 +13,15 @@ class FeedCell: UICollectionViewCell {
     lazy var pokedexImage: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
-        image.image = UIImage(systemName: "person.fill")?.withTintColor(.systemYellow, renderingMode: .alwaysOriginal)
+        image.image = UIImage(systemName: "person.fill")
         image.contentMode = .scaleAspectFit
         image.clipsToBounds = true
-        image.backgroundColor = .cyan
         return image
     }()
     
     lazy var nameLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.text = "NOME DO POKEMON"
         label.font = .preferredFont(forTextStyle: .footnote)
         label.textAlignment = .center
         return label
@@ -36,6 +34,12 @@ class FeedCell: UICollectionViewCell {
     
     required init?(coder: NSCoder) {
         fatalError("init(coder:) has not been implemented")
+    }
+    
+    func configure(pokemon: Pokemon) {
+        nameLabel.text = pokemon.name.capitalized
+        self.backgroundColor = .systemPink.withAlphaComponent(0.2)
+        self.layer.cornerRadius = 10
     }
     
     private func setupView() {

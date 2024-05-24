@@ -9,8 +9,8 @@ import UIKit
 
 class FeedViewController: UIViewController {
     
-    let feedView = FeedView()
-    let viewModel = FeedViewModel()
+    private let feedView = FeedView()
+    private let viewModel: FeedViewModelProtocol = FeedViewModel()
     
     override func loadView() {
         super.loadView()
@@ -22,7 +22,7 @@ class FeedViewController: UIViewController {
         setNavBar()
         setDelegatesAndDataSource()
         handleStates()
-        viewModel.loadData()
+        viewModel.loadDataPokemon()
     }
     
     private func setNavBar() {
@@ -49,11 +49,12 @@ class FeedViewController: UIViewController {
     }
     
     private func showLoadingState() {
-        
+        feedView.removeFromSuperview()
     }
     
     private func showLoadedState() {
- 
+        feedView.collectionView.reloadData()
+        feedView.spinner.stopAnimating()
     }
     
     private func showErrorState() {
@@ -63,13 +64,12 @@ class FeedViewController: UIViewController {
 
 extension FeedViewController: UICollectionViewDelegate, UICollectionViewDataSource {
     func collectionView(_ collectionView: UICollectionView, numberOfItemsInSection section: Int) -> Int {
-        return 14
+        return viewModel.numberOfItemsInSection()
     }
     
     func collectionView(_ collectionView: UICollectionView, cellForItemAt indexPath: IndexPath) -> UICollectionViewCell {
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedCell.identifier, for: indexPath) as? FeedCell else { return UICollectionViewCell() }
-        cell.backgroundColor = .systemPink
-        cell.layer.cornerRadius = 10
+        cell.configure(pokemon: viewModel.cellForItemAt(indexPath: indexPath))
         return cell
     }
 }
