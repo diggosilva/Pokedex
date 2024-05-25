@@ -58,7 +58,17 @@ class FeedViewController: UIViewController {
     }
     
     private func showErrorState() {
-        
+        let alert = UIAlertController(title: "Opa, ocorreu um erro!", message: "Tentar novamente?", preferredStyle: .alert)
+        let ok = UIAlertAction(title: "Sim", style: .default) { action in
+            self.viewModel.loadDataPokemon()
+        }
+        let nok = UIAlertAction(title: "Não", style: .cancel) { action in
+            self.feedView.spinner.stopAnimating()
+            self.feedView.errorLabel.isHidden = false
+        }
+        alert.addAction(ok)
+        alert.addAction(nok)
+        present(alert, animated: true)
     }
 }
 

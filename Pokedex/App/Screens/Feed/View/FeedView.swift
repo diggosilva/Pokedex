@@ -25,7 +25,19 @@ class FeedView: UIView {
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)
         collectionView.translatesAutoresizingMaskIntoConstraints = false
         collectionView.register(FeedCell.self, forCellWithReuseIdentifier: FeedCell.identifier)
+        collectionView.backgroundColor = .secondarySystemFill
         return collectionView
+    }()
+    
+    lazy var errorLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .preferredFont(forTextStyle: .headline)
+        label.textAlignment = .center
+        label.text = "Tente novamente mais tarde!"
+        label.textColor = .gray
+        label.isHidden = true
+        return label
     }()
     
     override init(frame: CGRect) {
@@ -45,12 +57,16 @@ class FeedView: UIView {
     private func setHierarchy () {
         addSubview(collectionView)
         addSubview(spinner)
+        addSubview(errorLabel)
     }
     
     private func setConstraints() {
         NSLayoutConstraint.activate([
             spinner.centerXAnchor.constraint(equalTo: centerXAnchor),
             spinner.centerYAnchor.constraint(equalTo: centerYAnchor),
+            
+            errorLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
+            errorLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             
             collectionView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
             collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),

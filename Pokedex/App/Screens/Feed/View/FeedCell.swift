@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class FeedCell: UICollectionViewCell {
     static let identifier = "FeedCell"
@@ -13,7 +14,6 @@ class FeedCell: UICollectionViewCell {
     lazy var pokedexImage: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
-        image.image = UIImage(systemName: "person.fill")
         image.contentMode = .scaleAspectFit
         image.clipsToBounds = true
         return image
@@ -23,7 +23,9 @@ class FeedCell: UICollectionViewCell {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .footnote)
+        label.font = .boldSystemFont(ofSize: 12)
         label.textAlignment = .center
+        label.textColor = .white
         return label
     }()
     
@@ -37,8 +39,19 @@ class FeedCell: UICollectionViewCell {
     }
     
     func configure(pokemon: Pokemon) {
+        guard let url = URL(string: pokemon.imageUrl) else { return }
+        
+        DispatchQueue.global().async {
+            if let imageData = try? Data(contentsOf: url), let image = UIImage(data: imageData) {
+                DispatchQueue.main.async {
+                    self.pokedexImage.image = image
+                    if let averageColor = image.averageColor {
+                        self.backgroundColor = averageColor
+                    }
+                }
+            }
+        }
         nameLabel.text = pokemon.name.capitalized
-        self.backgroundColor = .systemPink.withAlphaComponent(0.2)
         self.layer.cornerRadius = 10
     }
     

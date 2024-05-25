@@ -9,14 +9,14 @@ import Foundation
 
 protocol ServiceProtocol {
     var dataTask: URLSessionDataTask? { get set }
-    func getPokemons(onSuccess: @escaping([Pokemon]) -> Void, onError: @escaping(Error) -> Void)
+    func getPokemons(url: String, onSuccess: @escaping([Pokemon]) -> Void, onError: @escaping(Error) -> Void)
 }
 
 final class Service: ServiceProtocol {
     var dataTask: URLSessionDataTask?
     
-    func getPokemons(onSuccess: @escaping([Pokemon]) -> Void, onError: @escaping(Error) -> Void) {
-        guard let url = URL(string: "https://pokeapi.co/api/v2/pokemon?limit=50&offset=0") else { return }
+    func getPokemons(url: String, onSuccess: @escaping([Pokemon]) -> Void, onError: @escaping(Error) -> Void) {
+        guard let url = URL(string: url) else { return }
         
         dataTask = URLSession.shared.dataTask(with: url, completionHandler: { data, response, error in
             DispatchQueue.main.async {
@@ -33,9 +33,10 @@ final class Service: ServiceProtocol {
                     }
                     
                     onSuccess(pokemons)
+                    print("DEBUG: SUCESSO ao decodificar POKEMONS \(pokemons)")
                 } catch {
                     onError(error)
-                    print("DEBUG: Erro ao decoficar POKEMONS \(error)")
+                    print("DEBUG: ERRO ao decodificar POKEMONS \(error.localizedDescription)")
                 }
             }
         })
