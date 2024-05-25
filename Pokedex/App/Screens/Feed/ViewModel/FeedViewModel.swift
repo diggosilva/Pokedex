@@ -39,7 +39,7 @@ class FeedViewModel: FeedViewModelProtocol {
     }
     
     func loadDataPokemon() {
-        self.service.getPokemons(url: "https://pokeapi.co/api/v2/pokemon?limit=50&offset=0") { pokemons in
+        self.service.getPokemons(url: "https://pokeapi.co/api/v2/pokemon?limit=20&offset=0") { pokemons in
             self.pokemonList = pokemons
             self.state.value = .loaded
         } onError: { error in
