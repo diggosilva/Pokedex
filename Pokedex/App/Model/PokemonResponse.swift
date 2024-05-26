@@ -8,6 +8,7 @@
 import Foundation
 
 struct PokemonResponse: Codable {
+    let next: String?
     let results: [Result]
     
     struct Result: Codable {

@@ -83,6 +83,10 @@ extension FeedViewController: UICollectionViewDelegate, UICollectionViewDataSour
         cell.configure(pokemon: viewModel.cellForItemAt(indexPath: indexPath))
         return cell
     }
+    
+    func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
+        viewModel.collectionView(forItemAt: indexPath)
+    }
 }
 
 extension FeedViewController: UISearchBarDelegate {
