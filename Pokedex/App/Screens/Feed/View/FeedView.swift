@@ -8,6 +8,15 @@
 import UIKit
 
 class FeedView: UIView {
+    lazy var searchBar: UISearchBar = {
+        let searchBar = UISearchBar()
+        searchBar.translatesAutoresizingMaskIntoConstraints = false
+        searchBar.placeholder = "Buscar pokemons..."
+        searchBar.showsBookmarkButton = true
+        searchBar.searchBarStyle = .minimal
+        return searchBar
+    }()
+    
     lazy var spinner: UIActivityIndicatorView = {
         let spinner = UIActivityIndicatorView(style: .large)
         spinner.translatesAutoresizingMaskIntoConstraints = false
@@ -55,6 +64,7 @@ class FeedView: UIView {
     }
     
     private func setHierarchy () {
+        addSubview(searchBar)
         addSubview(collectionView)
         addSubview(spinner)
         addSubview(errorLabel)
@@ -68,7 +78,11 @@ class FeedView: UIView {
             errorLabel.centerXAnchor.constraint(equalTo: centerXAnchor),
             errorLabel.centerYAnchor.constraint(equalTo: centerYAnchor),
             
-            collectionView.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            searchBar.topAnchor.constraint(equalTo: safeAreaLayoutGuide.topAnchor),
+            searchBar.leadingAnchor.constraint(equalTo: leadingAnchor),
+            searchBar.trailingAnchor.constraint(equalTo: trailingAnchor),
+            
+            collectionView.topAnchor.constraint(equalTo: searchBar.bottomAnchor),
             collectionView.leadingAnchor.constraint(equalTo: leadingAnchor),
             collectionView.trailingAnchor.constraint(equalTo: trailingAnchor),
             collectionView.bottomAnchor.constraint(equalTo: safeAreaLayoutGuide.bottomAnchor),
