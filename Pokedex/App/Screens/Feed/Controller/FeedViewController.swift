@@ -33,6 +33,7 @@ class FeedViewController: UIViewController {
     private func setDelegatesAndDataSource() {
         feedView.collectionView.delegate = self
         feedView.collectionView.dataSource = self
+        feedView.searchBar.delegate = self
     }
     
     private func handleStates() {
@@ -81,5 +82,16 @@ extension FeedViewController: UICollectionViewDelegate, UICollectionViewDataSour
         guard let cell = collectionView.dequeueReusableCell(withReuseIdentifier: FeedCell.identifier, for: indexPath) as? FeedCell else { return UICollectionViewCell() }
         cell.configure(pokemon: viewModel.cellForItemAt(indexPath: indexPath))
         return cell
+    }
+}
+
+extension FeedViewController: UISearchBarDelegate {
+    func searchBar(_ searchBar: UISearchBar, textDidChange searchText: String) {
+        viewModel.searchBar(textDidChange: searchText)
+        feedView.collectionView.reloadData()
+    }
+    
+    func searchBarSearchButtonClicked(_ searchBar: UISearchBar) {
+        searchBar.resignFirstResponder()
     }
 }

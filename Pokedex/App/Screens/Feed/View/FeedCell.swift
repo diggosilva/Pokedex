@@ -39,6 +39,7 @@ class FeedCell: UICollectionViewCell {
     }
     
     func configure(pokemon: Pokemon) {
+        fadeInfadeOut(alpha: 0)
         guard let url = URL(string: pokemon.imageUrl) else { return }
         
         DispatchQueue.global().async {
@@ -53,6 +54,14 @@ class FeedCell: UICollectionViewCell {
         }
         nameLabel.text = pokemon.name.capitalized
         self.layer.cornerRadius = 10
+        fadeInfadeOut(alpha: 1)
+    }
+    
+    private func fadeInfadeOut(alpha: CGFloat) {
+        UIView.animate(withDuration: 0.25) {
+            self.pokedexImage.alpha = alpha
+            self.nameLabel.alpha = alpha
+        }
     }
     
     private func setupView() {

@@ -10,6 +10,7 @@ import Foundation
 protocol FeedViewModelProtocol {
     func numberOfItemsInSection() -> Int
     func cellForItemAt(indexPath: IndexPath) -> Pokemon
+    func searchBar(textDidChange searchText: String)
     func loadDataPokemon()
     
     var state: Bindable<FeedViewControllerStates> { get set }
@@ -24,23 +25,39 @@ enum FeedViewControllerStates {
 class FeedViewModel: FeedViewModelProtocol {
     var state: Bindable<FeedViewControllerStates> = Bindable(value: .loading)
     private var service: ServiceProtocol = Service()
-    private var pokemonList: [Pokemon] = []
+    private var pokemons: [Pokemon] = []
+    private var filteredPokemons: [Pokemon] = []
     
     init(service: ServiceProtocol = Service()) {
         self.service = service
     }
     
     func numberOfItemsInSection() -> Int {
-        return pokemonList.count
+        return filteredPokemons.count
     }
     
     func cellForItemAt(indexPath: IndexPath) -> Pokemon {
-        return pokemonList[indexPath.row]
+        return filteredPokemons[indexPath.row]
+    }
+    
+    func searchBar(textDidChange searchText: String) {
+        filteredPokemons = []
+        
+        if searchText.isEmpty {
+            filteredPokemons = pokemons
+        } else {
+            for pokemon in pokemons {
+                if pokemon.name.uppercased().contains(searchText.uppercased()) {
+                    filteredPokemons.append(pokemon)
+                }
+            }
+        }
     }
     
     func loadDataPokemon() {
         self.service.getPokemons(url: "https://pokeapi.co/api/v2/pokemon?limit=20&offset=0") { pokemons in
-            self.pokemonList = pokemons
+            self.pokemons = pokemons
+            self.filteredPokemons = self.pokemons
             self.state.value = .loaded
         } onError: { error in
             self.state.value = .error

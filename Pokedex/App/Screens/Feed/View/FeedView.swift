@@ -11,7 +11,8 @@ class FeedView: UIView {
     lazy var searchBar: UISearchBar = {
         let searchBar = UISearchBar()
         searchBar.translatesAutoresizingMaskIntoConstraints = false
-        searchBar.placeholder = "buscar pokemons..."
+        searchBar.placeholder = "Buscar pokemons..."
+        searchBar.showsBookmarkButton = true
         searchBar.searchBarStyle = .minimal
         return searchBar
     }()
