@@ -64,10 +64,7 @@ class FeedView: UIView {
     }
     
     private func setHierarchy () {
-        addSubview(searchBar)
-        addSubview(collectionView)
-        addSubview(spinner)
-        addSubview(errorLabel)
+        addSubviews([searchBar, collectionView, spinner, errorLabel])
     }
     
     private func setConstraints() {

@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import SDWebImage
 
 class DetailsView: UIView {
     lazy var fakePagePresentation: UIView = {
@@ -19,9 +20,7 @@ class DetailsView: UIView {
     lazy var pokemonImage: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
-        image.image = UIImage(systemName: "person.fill")
         image.contentMode = .scaleAspectFit
-        image.backgroundColor = .red
         return image
     }()
     
@@ -30,7 +29,6 @@ class DetailsView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .title1)
         label.textAlignment = .center
-        label.text = "Nome do Pokemon"
         return label
     }()
     
@@ -39,9 +37,8 @@ class DetailsView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .headline)
         label.textAlignment = .center
-        label.text = "Poison"
         label.textColor = .white
-        label.backgroundColor = .systemGreen
+        label.backgroundColor = .systemGray4
         label.layer.cornerRadius = 17.5
         label.clipsToBounds = true
         return label
@@ -112,7 +109,6 @@ class DetailsView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .body)
         label.textAlignment = .center
-        label.text = "7"
         label.textColor = .black
         return label
     }()
@@ -122,7 +118,6 @@ class DetailsView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .body)
         label.textAlignment = .center
-        label.text = "49"
         label.textColor = .black
         return label
     }()
@@ -132,7 +127,6 @@ class DetailsView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .body)
         label.textAlignment = .center
-        label.text = "54"
         label.textColor = .black
         return label
     }()
@@ -142,7 +136,6 @@ class DetailsView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .body)
         label.textAlignment = .center
-        label.text = "69"
         label.textColor = .black
         return label
     }()
@@ -161,7 +154,6 @@ class DetailsView: UIView {
         let progressView = UIProgressView()
         progressView.translatesAutoresizingMaskIntoConstraints = false
         progressView.progressTintColor = .systemOrange
-        progressView.progress = 0.1
         progressView.layer.cornerRadius = 10
         progressView.clipsToBounds = true
         progressView.contentMode = .scaleAspectFit
@@ -172,7 +164,6 @@ class DetailsView: UIView {
         let progressView = UIProgressView()
         progressView.translatesAutoresizingMaskIntoConstraints = false
         progressView.progressTintColor = .systemRed
-        progressView.progress = 0.1
         progressView.layer.cornerRadius = 10
         progressView.clipsToBounds = true
         progressView.contentMode = .scaleAspectFit
@@ -183,7 +174,6 @@ class DetailsView: UIView {
         let progressView = UIProgressView()
         progressView.translatesAutoresizingMaskIntoConstraints = false
         progressView.progressTintColor = .systemCyan
-        progressView.progress = 0.1
         progressView.layer.cornerRadius = 10
         progressView.clipsToBounds = true
         progressView.contentMode = .scaleAspectFit
@@ -194,7 +184,6 @@ class DetailsView: UIView {
         let progressView = UIProgressView()
         progressView.translatesAutoresizingMaskIntoConstraints = false
         progressView.progressTintColor = .systemIndigo
-        progressView.progress = 0.1
         progressView.layer.cornerRadius = 10
         progressView.clipsToBounds = true
         progressView.contentMode = .scaleAspectFit
@@ -229,12 +218,25 @@ class DetailsView: UIView {
         fatalError("init(coder:) has not been implemented")
     }
     
+    func configure(detailsModel: DetailModel) {
+        guard let url = URL(string: detailsModel.image) else { return }
+        pokemonImage.sd_setImage(with: url)
+        nameLabel.text = detailsModel.name.capitalized
+        typeLabel.text = detailsModel.types.capitalized
+        heightValueLabel.text = "\(detailsModel.getHeight)"
+        weightValueLabel.text = "\(detailsModel.getWeight)"
+        
+        heightProgressView.progress = Float(detailsModel.height) / 100
+        weightProgressView.progress = Float(detailsModel.weight) / 1000
+    }
+    
     private func setupView() {
         setHierarchy()
         setConstraints()
     }
     
     private func setHierarchy () {
+        backgroundColor = .systemYellow
         addSubviews([fakePagePresentation, pokemonImage, nameLabel, typeLabel, statsLabel, statsHStack])
     }
     

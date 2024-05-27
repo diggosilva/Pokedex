@@ -10,7 +10,7 @@ import UIKit
 class FeedViewController: UIViewController {
     
     private let feedView = FeedView()
-    private let viewModel: FeedViewModelProtocol = FeedViewModel()
+    private let viewModel = FeedViewModel()
     
     override func loadView() {
         super.loadView()
@@ -86,6 +86,12 @@ extension FeedViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, willDisplay cell: UICollectionViewCell, forItemAt indexPath: IndexPath) {
         viewModel.collectionView(forItemAt: indexPath)
+    }
+    
+    func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
+        let pokemonId = viewModel.cellForItemAt(indexPath: indexPath).getId
+        let detailsVC = DetailsViewController(id: pokemonId)
+        navigationController?.pushViewController(detailsVC, animated: true)
     }
 }
 

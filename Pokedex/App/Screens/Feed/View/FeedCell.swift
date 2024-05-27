@@ -38,7 +38,7 @@ class FeedCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(pokemon: Pokemon) {
+    func configure(pokemon: FeedModel) {
         fadeInFadeOut(alpha: 0)
         guard let url = URL(string: pokemon.imageUrl) else { return }
         
@@ -70,8 +70,7 @@ class FeedCell: UICollectionViewCell {
     }
     
     private func setHierarchy () {
-        addSubview(pokedexImage)
-        addSubview(nameLabel)
+        addSubviews([pokedexImage, nameLabel])
     }
     
     private func setConstraints() {
