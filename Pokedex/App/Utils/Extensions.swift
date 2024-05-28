@@ -22,3 +22,9 @@ extension UIImage {
         return UIColor(red: CGFloat(bitmap[0]) / 255, green: CGFloat(bitmap[1]) / 255, blue: CGFloat(bitmap[2]) / 255, alpha: CGFloat(bitmap[3]) / 255)
     }
 }
+
+extension UIView {
+    func addSubviews(_ views: [UIView]) {
+        views.forEach({ addSubview($0) })
+    }
+}

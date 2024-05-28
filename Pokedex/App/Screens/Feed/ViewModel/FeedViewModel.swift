@@ -9,12 +9,10 @@ import Foundation
 
 protocol FeedViewModelProtocol {
     func numberOfItemsInSection() -> Int
-    func cellForItemAt(indexPath: IndexPath) -> Pokemon
+    func cellForItemAt(indexPath: IndexPath) -> FeedModel
     func searchBar(textDidChange searchText: String)
     func collectionView(forItemAt indexPath: IndexPath)
     func loadDataPokemon()
-    
-    var state: Bindable<FeedViewControllerStates> { get set }
 }
 
 enum FeedViewControllerStates {
@@ -24,10 +22,10 @@ enum FeedViewControllerStates {
 }
 
 class FeedViewModel: FeedViewModelProtocol {
-    var state: Bindable<FeedViewControllerStates> = Bindable(value: .loading)
+    private (set) var state: Bindable<FeedViewControllerStates> = Bindable(value: .loading)
     private var service: ServiceProtocol = Service()
-    private var pokemons: [Pokemon] = []
-    private var filteredPokemons: [Pokemon] = []
+    private var pokemons: [FeedModel] = []
+    private var filteredPokemons: [FeedModel] = []
     private var nextUrl: String?
     
     init(service: ServiceProtocol = Service()) {
@@ -38,7 +36,7 @@ class FeedViewModel: FeedViewModelProtocol {
         return filteredPokemons.count
     }
     
-    func cellForItemAt(indexPath: IndexPath) -> Pokemon {
+    func cellForItemAt(indexPath: IndexPath) -> FeedModel {
         return filteredPokemons[indexPath.row]
     }
     
@@ -64,7 +62,7 @@ class FeedViewModel: FeedViewModelProtocol {
     }
     
     func loadDataPokemon() {
-        fetchRequest(url: "https://pokeapi.co/api/v2/pokemon?limit=20&offset=0")
+        fetchRequest(url: "https://pokeapi.co/api/v2/pokemon?limit=40&offset=0")
     }
     
     func fetchRequest(url: String) {

@@ -38,8 +38,8 @@ class FeedCell: UICollectionViewCell {
         fatalError("init(coder:) has not been implemented")
     }
     
-    func configure(pokemon: Pokemon) {
-        fadeInfadeOut(alpha: 0)
+    func configure(pokemon: FeedModel) {
+        fadeInFadeOut(alpha: 0)
         guard let url = URL(string: pokemon.imageUrl) else { return }
         
         DispatchQueue.global().async {
@@ -47,17 +47,17 @@ class FeedCell: UICollectionViewCell {
                 DispatchQueue.main.async {
                     self.pokedexImage.image = image
                     if let averageColor = image.averageColor {
-                        self.backgroundColor = averageColor
+                        self.backgroundColor = averageColor.withAlphaComponent(0.8)
                     }
                 }
             }
         }
         nameLabel.text = pokemon.name.capitalized
         self.layer.cornerRadius = 10
-        fadeInfadeOut(alpha: 1)
+        fadeInFadeOut(alpha: 1)
     }
     
-    private func fadeInfadeOut(alpha: CGFloat) {
+    private func fadeInFadeOut(alpha: CGFloat) {
         UIView.animate(withDuration: 0.25) {
             self.pokedexImage.alpha = alpha
             self.nameLabel.alpha = alpha
@@ -70,8 +70,7 @@ class FeedCell: UICollectionViewCell {
     }
     
     private func setHierarchy () {
-        addSubview(pokedexImage)
-        addSubview(nameLabel)
+        addSubviews([pokedexImage, nameLabel])
     }
     
     private func setConstraints() {

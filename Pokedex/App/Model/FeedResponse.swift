@@ -1,5 +1,5 @@
 //
-//  PokemonResponse.swift
+//  FeedResponse.swift
 //  Pokedex
 //
 //  Created by Diggo Silva on 24/05/24.
@@ -7,11 +7,11 @@
 
 import Foundation
 
-struct PokemonResponse: Codable {
+struct FeedResponse: Codable {
     let next: String?
-    let results: [Result]
+    let results: [NameURLModel]
     
-    struct Result: Codable {
+    struct NameURLModel: Codable {
         let name: String
         let url: String
     }
