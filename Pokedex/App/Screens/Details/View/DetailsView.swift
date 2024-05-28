@@ -225,6 +225,8 @@ class DetailsView: UIView {
         typeLabel.text = detailsModel.types.capitalized
         heightValueLabel.text = "\(detailsModel.getHeight)"
         weightValueLabel.text = "\(detailsModel.getWeight)"
+        attackValueLabel.text = "\(detailsModel.stats[0].base)"
+        defenseValueLabel.text = "\(detailsModel.stats[0].base)"
         
         heightProgressView.progress = Float(detailsModel.height) / 100
         weightProgressView.progress = Float(detailsModel.weight) / 1000

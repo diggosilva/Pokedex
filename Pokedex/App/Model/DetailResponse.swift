@@ -8,8 +8,6 @@
 import Foundation
 
 struct DetailResponse: Codable {
-    let abilities: [Ability]
-    let baseExperience: Int
     let height: Int
     let id: Int
     let name: String
@@ -20,8 +18,6 @@ struct DetailResponse: Codable {
     let weight: Int
 
     enum CodingKeys: String, CodingKey {
-        case abilities
-        case baseExperience = "base_experience"
         case height
         case id
         case name
@@ -41,10 +37,6 @@ struct DetailResponse: Codable {
     
     struct TypeElement: Codable {
         let type: Species
-    }
-    
-    struct Ability: Codable {
-        let ability: Species
     }
 
     struct Species: Codable {

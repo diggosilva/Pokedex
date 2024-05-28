@@ -11,13 +11,12 @@ struct DetailModel {
     let name: String
     let weight: Double
     let types: String
-    let abilities: String
-//    let stats: [PokemonStats]
+    let stats: [PokemonStats]
     let image: String
     let height: Double
     
     var getWeight: String {
-        return (weight/10).formatted() + " Kg"
+        return (weight/10).formatted() + " kg"
     }
     
     var getHeight: String {

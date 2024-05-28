@@ -32,7 +32,6 @@ final class Service: ServiceProtocol {
                         feedModel.append(FeedModel(name: pokemon.name, url: pokemon.url))
                     }
                     onSuccess(nextUrl, feedModel)
-                    print("DEBUG: SUCESSO ao decodificar POKEMONS \(feedModel)")
                 } catch {
                     onError(error)
                     print("DEBUG: ERRO ao decodificar POKEMONS \(error.localizedDescription)")
@@ -54,7 +53,7 @@ final class Service: ServiceProtocol {
                             name: detailsResponse.name,
                             weight: Double(detailsResponse.weight),
                             types: detailsResponse.types[0].type.name,
-                            abilities: detailsResponse.abilities[0].ability.name,
+                            stats: [PokemonStats(base: Double(detailsResponse.stats[0].baseStat), name: detailsResponse.stats[0].stat.name)],
                             image: detailsResponse.sprites.other?.officialArtwork.frontDefault ?? "",
                             height: Double(detailsResponse.height)
                         )
