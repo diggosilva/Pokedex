@@ -22,6 +22,20 @@ struct DetailModel {
     var getHeight: String {
         return (height*10).formatted() + " cm"
     }
+    
+    var getAttack: Double {
+        var attack: Double?
+        for stat in stats {
+            if stat.name == "attack" {
+                attack = stat.base
+            }
+        }
+        return attack ?? 0
+    }
+    
+    var getDefense: Double {
+        stats.first(where: { $0.name == "defense" })?.base ?? 0
+    }
 }
 
 struct PokemonType {

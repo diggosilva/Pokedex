@@ -12,7 +12,7 @@ class DetailsView: UIView {
     lazy var fakePagePresentation: UIView = {
         let page = UIView()
         page.translatesAutoresizingMaskIntoConstraints = false
-        page.backgroundColor = .white
+        page.backgroundColor = .white.withAlphaComponent(0.8)
         page.layer.cornerRadius = 30
         return page
     }()
@@ -29,6 +29,7 @@ class DetailsView: UIView {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .title1)
         label.textAlignment = .center
+        label.textColor = .black
         return label
     }()
     
@@ -50,6 +51,7 @@ class DetailsView: UIView {
         label.font = .preferredFont(forTextStyle: .footnote)
         label.font = .boldSystemFont(ofSize: 14)
         label.text = "Stats"
+        label.textColor = .black
         return label
     }()
     
@@ -60,7 +62,7 @@ class DetailsView: UIView {
         label.font = .preferredFont(forTextStyle: .body)
         label.textAlignment = .center
         label.text = "Altura"
-        label.textColor = .secondaryLabel
+        label.textColor = .systemGray
         return label
     }()
     
@@ -70,7 +72,7 @@ class DetailsView: UIView {
         label.font = .preferredFont(forTextStyle: .body)
         label.textAlignment = .center
         label.text = "Ataque"
-        label.textColor = .secondaryLabel
+        label.textColor = .systemGray
         return label
     }()
     
@@ -80,7 +82,7 @@ class DetailsView: UIView {
         label.font = .preferredFont(forTextStyle: .body)
         label.textAlignment = .center
         label.text = "Defesa"
-        label.textColor = .secondaryLabel
+        label.textColor = .systemGray
         return label
     }()
     
@@ -90,7 +92,7 @@ class DetailsView: UIView {
         label.font = .preferredFont(forTextStyle: .body)
         label.textAlignment = .center
         label.text = "Peso"
-        label.textColor = .secondaryLabel
+        label.textColor = .systemGray
         return label
     }()
     
@@ -220,16 +222,37 @@ class DetailsView: UIView {
     
     func configure(detailsModel: DetailModel) {
         guard let url = URL(string: detailsModel.image) else { return }
+        bgColor(url: url, uiImage: pokemonImage)
         pokemonImage.sd_setImage(with: url)
         nameLabel.text = detailsModel.name.capitalized
         typeLabel.text = detailsModel.types.capitalized
         heightValueLabel.text = "\(detailsModel.getHeight)"
         weightValueLabel.text = "\(detailsModel.getWeight)"
-        attackValueLabel.text = "\(detailsModel.stats[0].base)"
-        defenseValueLabel.text = "\(detailsModel.stats[0].base)"
+        attackValueLabel.text = "\(detailsModel.getAttack)"
+        defenseValueLabel.text = "\(detailsModel.getDefense)"
         
-        heightProgressView.progress = Float(detailsModel.height) / 100
-        weightProgressView.progress = Float(detailsModel.weight) / 1000
+        DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            UIView.animate(withDuration: 0.75) {
+                self.heightProgressView.setProgress(Float(detailsModel.height) / 100, animated: true)
+                self.attackProgressView.setProgress(Float(detailsModel.getAttack) / 200, animated: true)
+                self.defenseProgressView.setProgress(Float(detailsModel.getDefense) / 200, animated: true)
+                self.weightProgressView.setProgress(Float(detailsModel.weight) / 1000, animated: true)
+            }
+        }
+    }
+    
+    private func bgColor(url: URL, uiImage: UIImageView) {
+        DispatchQueue.global().async {
+            if let imageData = try? Data(contentsOf: url), let image = UIImage(data: imageData) {
+                DispatchQueue.main.async {
+                    uiImage.image = image
+                    if let averageColor = image.averageColor {
+                        self.backgroundColor = averageColor.withAlphaComponent(1)
+                        self.typeLabel.backgroundColor = averageColor.withAlphaComponent(0.8)
+                    }
+                }
+            }
+        }
     }
     
     private func setupView() {
@@ -238,7 +261,6 @@ class DetailsView: UIView {
     }
     
     private func setHierarchy () {
-        backgroundColor = .systemYellow
         addSubviews([fakePagePresentation, pokemonImage, nameLabel, typeLabel, statsLabel, statsHStack])
     }
     

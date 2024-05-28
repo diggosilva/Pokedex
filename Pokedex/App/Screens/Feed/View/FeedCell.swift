@@ -47,7 +47,7 @@ class FeedCell: UICollectionViewCell {
                 DispatchQueue.main.async {
                     self.pokedexImage.image = image
                     if let averageColor = image.averageColor {
-                        self.backgroundColor = averageColor
+                        self.backgroundColor = averageColor.withAlphaComponent(0.8)
                     }
                 }
             }

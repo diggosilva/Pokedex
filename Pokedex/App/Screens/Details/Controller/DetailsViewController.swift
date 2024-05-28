@@ -28,13 +28,8 @@ class DetailsViewController: UIViewController {
     
     override func viewDidLoad() {
         super.viewDidLoad()
-        setNavBar()
         handleStates()
         viewModel.loadDataDetails()
-    }
-    
-    private func setNavBar() {
-        title = "DETALHES"
     }
     
     private func handleStates() {

@@ -49,16 +49,20 @@ final class Service: ServiceProtocol {
                 if let data = data {
                     do {
                         let detailsResponse = try JSONDecoder().decode(DetailResponse.self, from: data)
+                        var pokemonStats: [PokemonStats] = []
+                        
+                        for stat in detailsResponse.stats {
+                            pokemonStats.append(PokemonStats(base: Double(stat.baseStat), name: stat.stat.name))
+                        }
                         let detailModel = DetailModel(
                             name: detailsResponse.name,
                             weight: Double(detailsResponse.weight),
                             types: detailsResponse.types[0].type.name,
-                            stats: [PokemonStats(base: Double(detailsResponse.stats[0].baseStat), name: detailsResponse.stats[0].stat.name)],
+                            stats: pokemonStats,
                             image: detailsResponse.sprites.other?.officialArtwork.frontDefault ?? "",
                             height: Double(detailsResponse.height)
                         )
                         onSuccess(detailModel)
-                        print("DEBUG: SUCESSO ao decodificar DETALHES.. \(detailModel)")
                     } catch {
                         onError(error)
                         print("DEBUG: Erro aos decodificar DETALHES.. \(error.localizedDescription)")
