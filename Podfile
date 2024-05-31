@@ -7,4 +7,5 @@ target 'Pokedex' do
 
   # Pods for Pokedex
     pod 'SDWebImage', '~> 5.0'
+    pod 'Hero'
 end

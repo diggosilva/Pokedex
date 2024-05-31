@@ -6,6 +6,7 @@
 //
 
 import UIKit
+import Hero
 
 class FeedViewController: UIViewController {
     
@@ -90,7 +91,10 @@ extension FeedViewController: UICollectionViewDelegate, UICollectionViewDataSour
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
         let pokemonId = viewModel.cellForItemAt(indexPath: indexPath).getId
+        let pokeSelected = viewModel.cellForItemAt(indexPath: indexPath).name
+        let pokeImage = collectionView.cellForItem(at: indexPath) as! FeedCell
         let detailsVC = DetailsViewController(id: pokemonId)
+        detailsVC.detailsView.pokemonImage = pokeImage.pokedexImage
         navigationController?.pushViewController(detailsVC, animated: true)
     }
 }

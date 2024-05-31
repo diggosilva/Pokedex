@@ -9,7 +9,7 @@ import UIKit
 
 class DetailsViewController: UIViewController {
     
-    private let detailsView = DetailsView()
+    let detailsView = DetailsView()
     private let viewModel: DetailsViewModel
     
     init(id: Int) {

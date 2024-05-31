@@ -7,17 +7,18 @@
 
 import UIKit
 import SDWebImage
+import Hero
 
 class DetailsView: UIView {
-    lazy var fakePagePresentation: UIView = {
+    var fakePagePresentation: UIView = {
         let page = UIView()
         page.translatesAutoresizingMaskIntoConstraints = false
-        page.backgroundColor = .white.withAlphaComponent(0.8)
+        page.backgroundColor = .white
         page.layer.cornerRadius = 30
         return page
     }()
     
-    lazy var pokemonImage: UIImageView = {
+    var pokemonImage: UIImageView = {
         let image = UIImageView()
         image.translatesAutoresizingMaskIntoConstraints = false
         image.contentMode = .scaleAspectFit
@@ -56,10 +57,20 @@ class DetailsView: UIView {
     }()
     
     //MARK: - Stack VERTICAL Labels
+    lazy var hpLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .preferredFont(forTextStyle: .subheadline)
+        label.textAlignment = .center
+        label.text = "HP"
+        label.textColor = .systemGray
+        return label
+    }()
+    
     lazy var heightLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .preferredFont(forTextStyle: .body)
+        label.font = .preferredFont(forTextStyle: .subheadline)
         label.textAlignment = .center
         label.text = "Altura"
         label.textColor = .systemGray
@@ -69,7 +80,7 @@ class DetailsView: UIView {
     lazy var attackLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .preferredFont(forTextStyle: .body)
+        label.font = .preferredFont(forTextStyle: .subheadline)
         label.textAlignment = .center
         label.text = "Ataque"
         label.textColor = .systemGray
@@ -79,9 +90,39 @@ class DetailsView: UIView {
     lazy var defenseLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .preferredFont(forTextStyle: .body)
+        label.font = .preferredFont(forTextStyle: .subheadline)
         label.textAlignment = .center
         label.text = "Defesa"
+        label.textColor = .systemGray
+        return label
+    }()
+    
+    lazy var specialAttackLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .preferredFont(forTextStyle: .subheadline)
+        label.textAlignment = .center
+        label.text = "Ataque Especial"
+        label.textColor = .systemGray
+        return label
+    }()
+    
+    lazy var specialDefenseLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .preferredFont(forTextStyle: .subheadline)
+        label.textAlignment = .center
+        label.text = "Defesa Especial"
+        label.textColor = .systemGray
+        return label
+    }()
+    
+    lazy var speedLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .preferredFont(forTextStyle: .subheadline)
+        label.textAlignment = .center
+        label.text = "Velocidade"
         label.textColor = .systemGray
         return label
     }()
@@ -89,7 +130,7 @@ class DetailsView: UIView {
     lazy var weightLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .preferredFont(forTextStyle: .body)
+        label.font = .preferredFont(forTextStyle: .subheadline)
         label.textAlignment = .center
         label.text = "Peso"
         label.textColor = .systemGray
@@ -97,19 +138,29 @@ class DetailsView: UIView {
     }()
     
     lazy var vLabelsStack: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [heightLabel, attackLabel, defenseLabel, weightLabel])
+        let stack = UIStackView(arrangedSubviews: [hpLabel, heightLabel, attackLabel, defenseLabel, specialAttackLabel, specialDefenseLabel, speedLabel, weightLabel])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
         stack.spacing = 10
         stack.distribution = .fillEqually
+        stack.alignment = .trailing
         return stack
     }()
     
     //MARK: - Stack VERTICAL VALUE Labels
+    lazy var hpValueLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .preferredFont(forTextStyle: .subheadline)
+        label.textAlignment = .center
+        label.textColor = .black
+        return label
+    }()
+    
     lazy var heightValueLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .preferredFont(forTextStyle: .body)
+        label.font = .preferredFont(forTextStyle: .subheadline)
         label.textAlignment = .center
         label.textColor = .black
         return label
@@ -118,7 +169,7 @@ class DetailsView: UIView {
     lazy var attackValueLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .preferredFont(forTextStyle: .body)
+        label.font = .preferredFont(forTextStyle: .subheadline)
         label.textAlignment = .center
         label.textColor = .black
         return label
@@ -127,7 +178,34 @@ class DetailsView: UIView {
     lazy var defenseValueLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .preferredFont(forTextStyle: .body)
+        label.font = .preferredFont(forTextStyle: .subheadline)
+        label.textAlignment = .center
+        label.textColor = .black
+        return label
+    }()
+    
+    lazy var specialAttackValueLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .preferredFont(forTextStyle: .subheadline)
+        label.textAlignment = .center
+        label.textColor = .black
+        return label
+    }()
+    
+    lazy var specialDefenseValueLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .preferredFont(forTextStyle: .subheadline)
+        label.textAlignment = .center
+        label.textColor = .black
+        return label
+    }()
+    
+    lazy var speedValueLabel: UILabel = {
+        let label = UILabel()
+        label.translatesAutoresizingMaskIntoConstraints = false
+        label.font = .preferredFont(forTextStyle: .subheadline)
         label.textAlignment = .center
         label.textColor = .black
         return label
@@ -136,27 +214,38 @@ class DetailsView: UIView {
     lazy var weightValueLabel: UILabel = {
         let label = UILabel()
         label.translatesAutoresizingMaskIntoConstraints = false
-        label.font = .preferredFont(forTextStyle: .body)
+        label.font = .preferredFont(forTextStyle: .subheadline)
         label.textAlignment = .center
         label.textColor = .black
         return label
     }()
     
     lazy var vLabelsValueStack: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [heightValueLabel, attackValueLabel, defenseValueLabel, weightValueLabel])
+        let stack = UIStackView(arrangedSubviews: [hpValueLabel, heightValueLabel, attackValueLabel, defenseValueLabel, specialAttackValueLabel, specialDefenseValueLabel, speedValueLabel, weightValueLabel])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
         stack.spacing = 10
         stack.distribution = .fillEqually
+        stack.alignment = .leading
         return stack
     }()
     
     //MARK: - Stack VERTICAL ProgressView
+    lazy var hpProgressView: UIProgressView = {
+        let progressView = UIProgressView()
+        progressView.translatesAutoresizingMaskIntoConstraints = false
+        progressView.progressTintColor = .systemGreen
+        progressView.layer.cornerRadius = progressCornerRadius
+        progressView.clipsToBounds = true
+        progressView.contentMode = .scaleAspectFit
+        return progressView
+    }()
+    
     lazy var heightProgressView: UIProgressView = {
         let progressView = UIProgressView()
         progressView.translatesAutoresizingMaskIntoConstraints = false
         progressView.progressTintColor = .systemOrange
-        progressView.layer.cornerRadius = 10
+        progressView.layer.cornerRadius = progressCornerRadius
         progressView.clipsToBounds = true
         progressView.contentMode = .scaleAspectFit
         return progressView
@@ -166,7 +255,7 @@ class DetailsView: UIView {
         let progressView = UIProgressView()
         progressView.translatesAutoresizingMaskIntoConstraints = false
         progressView.progressTintColor = .systemRed
-        progressView.layer.cornerRadius = 10
+        progressView.layer.cornerRadius = progressCornerRadius
         progressView.clipsToBounds = true
         progressView.contentMode = .scaleAspectFit
         return progressView
@@ -176,7 +265,37 @@ class DetailsView: UIView {
         let progressView = UIProgressView()
         progressView.translatesAutoresizingMaskIntoConstraints = false
         progressView.progressTintColor = .systemCyan
-        progressView.layer.cornerRadius = 10
+        progressView.layer.cornerRadius = progressCornerRadius
+        progressView.clipsToBounds = true
+        progressView.contentMode = .scaleAspectFit
+        return progressView
+    }()
+    
+    lazy var specialAttackProgressView: UIProgressView = {
+        let progressView = UIProgressView()
+        progressView.translatesAutoresizingMaskIntoConstraints = false
+        progressView.progressTintColor = .systemRed
+        progressView.layer.cornerRadius = progressCornerRadius
+        progressView.clipsToBounds = true
+        progressView.contentMode = .scaleAspectFit
+        return progressView
+    }()
+    
+    lazy var specialDefenseProgressView: UIProgressView = {
+        let progressView = UIProgressView()
+        progressView.translatesAutoresizingMaskIntoConstraints = false
+        progressView.progressTintColor = .systemCyan
+        progressView.layer.cornerRadius = progressCornerRadius
+        progressView.clipsToBounds = true
+        progressView.contentMode = .scaleAspectFit
+        return progressView
+    }()
+    
+    lazy var speedDefenseProgressView: UIProgressView = {
+        let progressView = UIProgressView()
+        progressView.translatesAutoresizingMaskIntoConstraints = false
+        progressView.progressTintColor = .systemYellow
+        progressView.layer.cornerRadius = progressCornerRadius
         progressView.clipsToBounds = true
         progressView.contentMode = .scaleAspectFit
         return progressView
@@ -186,14 +305,16 @@ class DetailsView: UIView {
         let progressView = UIProgressView()
         progressView.translatesAutoresizingMaskIntoConstraints = false
         progressView.progressTintColor = .systemIndigo
-        progressView.layer.cornerRadius = 10
+        progressView.layer.cornerRadius = progressCornerRadius
         progressView.clipsToBounds = true
         progressView.contentMode = .scaleAspectFit
         return progressView
     }()
     
+    private var progressCornerRadius: CGFloat = 9
+    
     lazy var vProgressStack: UIStackView = {
-        let stack = UIStackView(arrangedSubviews: [heightProgressView, attackProgressView, defenseProgressView, weightProgressView])
+        let stack = UIStackView(arrangedSubviews: [hpProgressView, heightProgressView, attackProgressView, defenseProgressView, specialAttackProgressView, specialDefenseProgressView, speedDefenseProgressView, weightProgressView])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
         stack.spacing = 10
@@ -224,24 +345,34 @@ class DetailsView: UIView {
         guard let url = URL(string: detailsModel.image) else { return }
         bgColor(url: url, uiImage: pokemonImage)
         pokemonImage.sd_setImage(with: url)
+        pokemonImage.hero.id = detailsModel.name
         nameLabel.text = detailsModel.name.capitalized
         typeLabel.text = detailsModel.types.capitalized
+        hpValueLabel.text = "\(detailsModel.getHP)"
         heightValueLabel.text = "\(detailsModel.getHeight)"
         weightValueLabel.text = "\(detailsModel.getWeight)"
         attackValueLabel.text = "\(detailsModel.getAttack)"
         defenseValueLabel.text = "\(detailsModel.getDefense)"
+        specialAttackValueLabel.text = "\(detailsModel.getSpecialAttack)"
+        specialDefenseValueLabel.text = "\(detailsModel.getSpecialDefense)"
+        speedValueLabel.text = "\(detailsModel.getSpeed)"
         
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             UIView.animate(withDuration: 0.75) {
+                self.hpProgressView.setProgress(Float(detailsModel.getHP) / 100, animated: true)
                 self.heightProgressView.setProgress(Float(detailsModel.height) / 100, animated: true)
                 self.attackProgressView.setProgress(Float(detailsModel.getAttack) / 200, animated: true)
                 self.defenseProgressView.setProgress(Float(detailsModel.getDefense) / 200, animated: true)
-                self.weightProgressView.setProgress(Float(detailsModel.weight) / 1000, animated: true)
+                self.specialAttackProgressView.setProgress(Float(detailsModel.getSpecialAttack) / 200, animated: true)
+                self.specialDefenseProgressView.setProgress(Float(detailsModel.getSpecialDefense) / 200, animated: true)
+                self.speedDefenseProgressView.setProgress(Float(detailsModel.getSpeed) / 200, animated: true)
+                self.weightProgressView.setProgress(Float(detailsModel.weight) / 3000, animated: true)
             }
         }
     }
     
     private func bgColor(url: URL, uiImage: UIImageView) {
+//        self.backgroundColor = .black
         DispatchQueue.global().async {
             if let imageData = try? Data(contentsOf: url), let image = UIImage(data: imageData) {
                 DispatchQueue.main.async {

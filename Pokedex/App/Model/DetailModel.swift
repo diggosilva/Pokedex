@@ -23,8 +23,8 @@ struct DetailModel {
         return (height*10).formatted() + " cm"
     }
     
-    var getAttack: Double {
-        var attack: Double?
+    var getAttack: Int {
+        var attack: Int?
         for stat in stats {
             if stat.name == "attack" {
                 attack = stat.base
@@ -33,8 +33,24 @@ struct DetailModel {
         return attack ?? 0
     }
     
-    var getDefense: Double {
+    var getHP: Int {
+        stats.first(where: { $0.name == "hp" })?.base ?? 0
+    }
+    
+    var getDefense: Int {
         stats.first(where: { $0.name == "defense" })?.base ?? 0
+    }
+    
+    var getSpecialAttack: Int {
+        stats.first(where: { $0.name == "special-attack" })?.base ?? 0
+    }
+    
+    var getSpecialDefense: Int {
+        stats.first(where: { $0.name == "special-defense" })?.base ?? 0
+    }
+    
+    var getSpeed: Int {
+        stats.first(where: { $0.name == "speed" })?.base ?? 0
     }
 }
 
@@ -47,6 +63,6 @@ struct PokemonAbility {
 }
 
 struct PokemonStats {
-    let base: Double
+    let base: Int
     let name: String
 }

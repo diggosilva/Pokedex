@@ -52,7 +52,7 @@ final class Service: ServiceProtocol {
                         var pokemonStats: [PokemonStats] = []
                         
                         for stat in detailsResponse.stats {
-                            pokemonStats.append(PokemonStats(base: Double(stat.baseStat), name: stat.stat.name))
+                            pokemonStats.append(PokemonStats(base: Int(Double(stat.baseStat)), name: stat.stat.name))
                         }
                         let detailModel = DetailModel(
                             name: detailsResponse.name,

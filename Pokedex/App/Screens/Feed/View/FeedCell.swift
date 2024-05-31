@@ -7,6 +7,7 @@
 
 import UIKit
 import SDWebImage
+import Hero
 
 class FeedCell: UICollectionViewCell {
     static let identifier = "FeedCell"
@@ -41,11 +42,11 @@ class FeedCell: UICollectionViewCell {
     func configure(pokemon: FeedModel) {
         fadeInFadeOut(alpha: 0)
         guard let url = URL(string: pokemon.imageUrl) else { return }
-        
         DispatchQueue.global().async {
             if let imageData = try? Data(contentsOf: url), let image = UIImage(data: imageData) {
                 DispatchQueue.main.async {
                     self.pokedexImage.image = image
+                    self.pokedexImage.hero.id = pokemon.name
                     if let averageColor = image.averageColor {
                         self.backgroundColor = averageColor.withAlphaComponent(0.8)
                     }
