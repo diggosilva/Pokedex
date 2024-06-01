@@ -141,7 +141,7 @@ class DetailsView: UIView {
         let stack = UIStackView(arrangedSubviews: [hpLabel, heightLabel, attackLabel, defenseLabel, specialAttackLabel, specialDefenseLabel, speedLabel, weightLabel])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
-        stack.spacing = 10
+        stack.spacing = stackSpacing
         stack.distribution = .fillEqually
         stack.alignment = .trailing
         return stack
@@ -224,7 +224,7 @@ class DetailsView: UIView {
         let stack = UIStackView(arrangedSubviews: [hpValueLabel, heightValueLabel, attackValueLabel, defenseValueLabel, specialAttackValueLabel, specialDefenseValueLabel, speedValueLabel, weightValueLabel])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
-        stack.spacing = 10
+        stack.spacing = stackSpacing
         stack.distribution = .fillEqually
         stack.alignment = .leading
         return stack
@@ -311,13 +311,11 @@ class DetailsView: UIView {
         return progressView
     }()
     
-    private var progressCornerRadius: CGFloat = 9
-    
     lazy var vProgressStack: UIStackView = {
         let stack = UIStackView(arrangedSubviews: [hpProgressView, heightProgressView, attackProgressView, defenseProgressView, specialAttackProgressView, specialDefenseProgressView, speedDefenseProgressView, weightProgressView])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .vertical
-        stack.spacing = 10
+        stack.spacing = stackSpacing
         stack.distribution = .fillEqually
         return stack
     }()
@@ -327,10 +325,14 @@ class DetailsView: UIView {
         let stack = UIStackView(arrangedSubviews: [vLabelsStack, vLabelsValueStack, vProgressStack])
         stack.translatesAutoresizingMaskIntoConstraints = false
         stack.axis = .horizontal
-        stack.spacing = 10
+        stack.spacing = stackSpacing
         stack.distribution = .fill
+        stack.alpha = 0
         return stack
     }()
+
+    private var stackSpacing: CGFloat = 10
+    private var progressCornerRadius: CGFloat = 9
     
     override init(frame: CGRect) {
         super.init(frame: .zero)
@@ -342,11 +344,11 @@ class DetailsView: UIView {
     }
     
     func configure(detailsModel: DetailModel) {
-        guard let url = URL(string: detailsModel.image) else { return }
-        bgColor(url: url, uiImage: pokemonImage)
-        pokemonImage.sd_setImage(with: url)
-        pokemonImage.hero.id = detailsModel.name
-        nameLabel.text = detailsModel.name.capitalized
+        configureImageAndLabels(detailsModel: detailsModel)
+        configureProgressView(detailsModel: detailsModel)
+    }
+    
+    func configureImageAndLabels(detailsModel: DetailModel) {
         typeLabel.text = detailsModel.types.capitalized
         hpValueLabel.text = "\(detailsModel.getHP)"
         heightValueLabel.text = "\(detailsModel.getHeight)"
@@ -356,8 +358,11 @@ class DetailsView: UIView {
         specialAttackValueLabel.text = "\(detailsModel.getSpecialAttack)"
         specialDefenseValueLabel.text = "\(detailsModel.getSpecialDefense)"
         speedValueLabel.text = "\(detailsModel.getSpeed)"
-        
+    }
+    
+    func configureProgressView(detailsModel: DetailModel) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
+            self.fadeInFadeOut(alpha: 1)
             UIView.animate(withDuration: 0.75) {
                 self.hpProgressView.setProgress(Float(detailsModel.getHP) / 100, animated: true)
                 self.heightProgressView.setProgress(Float(detailsModel.height) / 100, animated: true)
@@ -371,18 +376,9 @@ class DetailsView: UIView {
         }
     }
     
-    private func bgColor(url: URL, uiImage: UIImageView) {
-//        self.backgroundColor = .black
-        DispatchQueue.global().async {
-            if let imageData = try? Data(contentsOf: url), let image = UIImage(data: imageData) {
-                DispatchQueue.main.async {
-                    uiImage.image = image
-                    if let averageColor = image.averageColor {
-                        self.backgroundColor = averageColor.withAlphaComponent(1)
-                        self.typeLabel.backgroundColor = averageColor.withAlphaComponent(0.8)
-                    }
-                }
-            }
+    private func fadeInFadeOut(alpha: CGFloat) {
+        UIView.animate(withDuration: 0.5) {
+            self.statsHStack.alpha = alpha
         }
     }
     

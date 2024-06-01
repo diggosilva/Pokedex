@@ -29,6 +29,7 @@ class FeedViewController: UIViewController {
     private func setNavBar() {
         view.backgroundColor = .systemBackground
         title = "Pokedex"
+        navigationController?.navigationBar.tintColor = .white
     }
     
     private func setDelegatesAndDataSource() {
@@ -90,11 +91,18 @@ extension FeedViewController: UICollectionViewDelegate, UICollectionViewDataSour
     }
     
     func collectionView(_ collectionView: UICollectionView, didSelectItemAt indexPath: IndexPath) {
-        let pokemonId = viewModel.cellForItemAt(indexPath: indexPath).getId
-        let pokeSelected = viewModel.cellForItemAt(indexPath: indexPath).name
-        let pokeImage = collectionView.cellForItem(at: indexPath) as! FeedCell
-        let detailsVC = DetailsViewController(id: pokemonId)
-        detailsVC.detailsView.pokemonImage = pokeImage.pokedexImage
+        let pokemon = viewModel.cellForItemAt(indexPath: indexPath)
+        let pokemonCell = collectionView.cellForItem(at: indexPath) as! FeedCell
+        let detailsVC = DetailsViewController(id: pokemon.getId)
+        detailsVC.detailsView.pokemonImage.hero.id = pokemon.name
+        detailsVC.detailsView.hero.id = "\(pokemon.getId)"
+        detailsVC.detailsView.nameLabel.text = pokemon.name.capitalized
+        detailsVC.detailsView.nameLabel.hero.id = pokemon.url
+        
+        detailsVC.detailsView.pokemonImage.image = pokemonCell._Image
+        detailsVC.detailsView.backgroundColor = pokemonCell._BackgroundColor
+        detailsVC.detailsView.typeLabel.backgroundColor = pokemonCell._BackgroundColor?.withAlphaComponent(0.8)
+        
         navigationController?.pushViewController(detailsVC, animated: true)
     }
 }

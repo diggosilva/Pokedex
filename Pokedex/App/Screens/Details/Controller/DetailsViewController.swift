@@ -29,7 +29,7 @@ class DetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         handleStates()
-        viewModel.loadDataDetails()
+        viewModel.loadDataDetails()    
     }
     
     private func handleStates() {
