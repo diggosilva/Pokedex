@@ -51,13 +51,13 @@ class FeedCell: UICollectionViewCell {
  
     }
     
-    func configureHeroId(pokemon: FeedModel) {
+    private func configureHeroId(pokemon: FeedModel) {
         nameLabel.hero.id = pokemon.url
         pokemonImage.hero.id = pokemon.name
         hero.id = "\(pokemon.getId)"
     }
     
-    func configureImageAndName(pokemon: FeedModel) {
+    private func configureImageAndName(pokemon: FeedModel) {
         guard let url = URL(string: pokemon.imageUrl) else { return }
         DispatchQueue.global().async {
             if let imageData = try? Data(contentsOf: url), let image = UIImage(data: imageData) {

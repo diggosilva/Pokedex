@@ -348,7 +348,7 @@ class DetailsView: UIView {
         configureProgressView(detailsModel: detailsModel)
     }
     
-    func configureImageAndLabels(detailsModel: DetailModel) {
+    private func configureImageAndLabels(detailsModel: DetailModel) {
         typeLabel.text = detailsModel.types.capitalized
         hpValueLabel.text = "\(detailsModel.getHP)"
         heightValueLabel.text = "\(detailsModel.getHeight)"
@@ -360,7 +360,7 @@ class DetailsView: UIView {
         speedValueLabel.text = "\(detailsModel.getSpeed)"
     }
     
-    func configureProgressView(detailsModel: DetailModel) {
+    private func configureProgressView(detailsModel: DetailModel) {
         DispatchQueue.main.asyncAfter(deadline: .now() + 0.5) {
             self.fadeInFadeOut(alpha: 1)
             UIView.animate(withDuration: 0.75) {
