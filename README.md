@@ -29,7 +29,10 @@ A iOS application written in Swift, that brings a list of pokemons using a Colle
 - MVVM
 - View Code (UIKit)
 - Custom elements
+<<<<<<< HEAD
 - Pagination
+=======
+>>>>>>> 1e7fef2 (Code updates)
 
 ## Requirements
 
