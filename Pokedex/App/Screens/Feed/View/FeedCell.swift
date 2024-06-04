@@ -25,6 +25,8 @@ class FeedCell: UICollectionViewCell {
         label.translatesAutoresizingMaskIntoConstraints = false
         label.font = .preferredFont(forTextStyle: .footnote)
         label.font = .boldSystemFont(ofSize: 12)
+        label.adjustsFontSizeToFitWidth = true
+        label.minimumScaleFactor = 0.6
         label.textAlignment = .center
         label.textColor = .white
         return label
@@ -81,7 +83,7 @@ class FeedCell: UICollectionViewCell {
     }
     
     private func fadeInFadeOut(alpha: CGFloat) {
-        UIView.animate(withDuration: 0.5) {
+        UIView.animate(withDuration: 0.3) {
             self.pokemonImage.alpha = alpha
             self.nameLabel.alpha = alpha
             self.alpha = alpha

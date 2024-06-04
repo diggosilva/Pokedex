@@ -62,7 +62,7 @@ class FeedViewModel: FeedViewModelProtocol {
     }
     
     func loadDataPokemon() {
-        fetchRequest(url: "https://pokeapi.co/api/v2/pokemon?limit=40&offset=0")
+        fetchRequest(url: "https://pokeapi.co/api/v2/pokemon?limit=60&offset=0")
     }
     
     func fetchRequest(url: String) {
