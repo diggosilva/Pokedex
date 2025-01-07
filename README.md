@@ -12,7 +12,7 @@
 A iOS application written in Swift, that brings a list of pokemons using a CollectionView, consuming data from the PokeAPI api. You can search by pokemon name, and by clicking on a pokemon you get its details.
 
 <p align="left">
-    <img src="https://media.giphy.com/media/oFVG205SufRbJrct3I/giphy.gif" width="300" max-width="40%" alt="Github"/>
+    <img src="https://media.giphy.com/media/77L760jY7mveKSyJEl/giphy.gif" width="300" max-width="40%" alt="Github"/>
 </p> 
 
 ## Contents
@@ -61,7 +61,6 @@ $ open Pokedex.xcworkspace/
 ## Built With
 
 * [SDWebImage](https://github.com/SDWebImage/SDWebImage) - Asynchronous image downloader with cache support as a UIImageView category
-* [Hero](https://github.com/HeroTransitions) -  Library for building iOS view controller transitions
 
 ## Credits
 
