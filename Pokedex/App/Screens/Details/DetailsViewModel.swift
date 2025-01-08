@@ -14,7 +14,7 @@ enum DetailsViewControllerStates {
 }
 
 class DetailsViewModel {
-    private (set) var state: Bindable<DetailsViewControllerStates> = Bindable(value: .loading)
+    private(set) var state: Bindable<DetailsViewControllerStates> = Bindable(value: .loading)
     private var service = Service()
     
     let id: Int
