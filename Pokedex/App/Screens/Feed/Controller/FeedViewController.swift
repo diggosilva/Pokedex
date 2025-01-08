@@ -6,7 +6,6 @@
 //
 
 import UIKit
-import Hero
 
 class FeedViewController: UIViewController {
     
@@ -94,15 +93,9 @@ extension FeedViewController: UICollectionViewDelegate, UICollectionViewDataSour
         let pokemon = viewModel.cellForItemAt(indexPath: indexPath)
         let pokemonCell = collectionView.cellForItem(at: indexPath) as! FeedCell
         let detailsVC = DetailsViewController(id: pokemon.getId)
-        detailsVC.detailsView.pokemonImage.hero.id = pokemon.name
-        detailsVC.detailsView.hero.id = "\(pokemon.getId)"
-        detailsVC.detailsView.nameLabel.text = pokemon.name.capitalized
-        detailsVC.detailsView.nameLabel.hero.id = pokemon.url
-        
         detailsVC.detailsView.pokemonImage.image = pokemonCell._Image
         detailsVC.detailsView.backgroundColor = pokemonCell._BackgroundColor
         detailsVC.detailsView.typeLabel.backgroundColor = pokemonCell._BackgroundColor?.withAlphaComponent(0.8)
-        
         navigationController?.pushViewController(detailsVC, animated: true)
     }
 }

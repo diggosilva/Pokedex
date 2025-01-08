@@ -7,7 +7,6 @@
 
 import UIKit
 import SDWebImage
-import Hero
 
 class DetailsView: UIView {
     var fakePagePresentation: UIView = {
