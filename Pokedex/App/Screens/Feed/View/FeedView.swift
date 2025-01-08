@@ -29,7 +29,7 @@ class FeedView: UIView {
         layout.scrollDirection = .vertical
         layout.minimumLineSpacing = 10
         layout.sectionInset = UIEdgeInsets(top: 10, left: 10, bottom: 10, right: 10)
-        let larguraTotal = (UIScreen.main.bounds.width - 40) / 3
+        let larguraTotal = (UIScreen.main.bounds.width - 40) / 2
         layout.itemSize = CGSize(width: larguraTotal, height: 100)
         
         let collectionView = UICollectionView(frame: .zero, collectionViewLayout: layout)

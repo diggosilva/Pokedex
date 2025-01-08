@@ -1,22 +1,18 @@
 PODS:
-  - Hero (1.6.3)
   - SDWebImage (5.15.5):
     - SDWebImage/Core (= 5.15.5)
   - SDWebImage/Core (5.15.5)
 
 DEPENDENCIES:
-  - Hero
   - SDWebImage (~> 5.0)
 
 SPEC REPOS:
   trunk:
-    - Hero
     - SDWebImage
 
 SPEC CHECKSUMS:
-  Hero: 419d43384355b3168512bd8ac6a33aadd3dc575b
   SDWebImage: fd7e1a22f00303e058058278639bf6196ee431fe
 
-PODFILE CHECKSUM: c8d14d8d9931ba064b01065e5c926376d446c670
+PODFILE CHECKSUM: 05566096492fffa32bddcee00c4eccfab4d32e5e
 
 COCOAPODS: 1.16.2

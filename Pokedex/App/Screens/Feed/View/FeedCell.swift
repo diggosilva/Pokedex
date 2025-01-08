@@ -7,7 +7,6 @@
 
 import UIKit
 import SDWebImage
-import Hero
 
 class FeedCell: UICollectionViewCell {
     static let identifier = "FeedCell"
@@ -46,17 +45,8 @@ class FeedCell: UICollectionViewCell {
     
     func configure(pokemon: FeedModel) {
         fadeInFadeOut(alpha: 0)
-        configureHeroId(pokemon: pokemon)
         configureImageAndName(pokemon: pokemon)
         fadeInFadeOut(alpha: 1)
-        
- 
-    }
-    
-    private func configureHeroId(pokemon: FeedModel) {
-        nameLabel.hero.id = pokemon.url
-        pokemonImage.hero.id = pokemon.name
-        hero.id = "\(pokemon.getId)"
     }
     
     private func configureImageAndName(pokemon: FeedModel) {
