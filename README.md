@@ -11,9 +11,9 @@
 
 A iOS application written in Swift, that brings a list of pokemons using a CollectionView, consuming data from the PokeAPI api. You can search by pokemon name, and by clicking on a pokemon you get its details.
 
-<p align="left">
-    <img src="https://media.giphy.com/media/77L760jY7mveKSyJEl/giphy.gif" width="300" max-width="40%" alt="Github"/>
-</p> 
+| Demo | Light | Dark |
+| --- | --- | --- |
+| ![Demo](https://github.com/user-attachments/assets/36699378-e0e8-4164-9974-e5c12324e2f6) | ![Light](https://github.com/user-attachments/assets/8181916f-fcb5-40f2-991e-64129f442964) | ![Dark](https://github.com/user-attachments/assets/a3137d97-072c-40f5-a686-6af671d821d9) |
 
 ## Contents
 
