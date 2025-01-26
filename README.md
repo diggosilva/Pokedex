@@ -55,6 +55,7 @@ After cloning, do the following:
 
 ```sh
 $ cd <diretorio-base>/Pokedex/
+$ pod install
 $ open Pokedex.xcworkspace/
 ```
 
