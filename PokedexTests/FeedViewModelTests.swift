@@ -1,5 +1,5 @@
 //
-//  PokedexTests.swift
+//  FeedViewModelTests.swift
 //  PokedexTests
 //
 //  Created by Diggo Silva on 11/03/25.
@@ -39,6 +39,7 @@ final class PokedexTests: XCTestCase {
         sut = FeedViewModel(service: serviceProtocol)
     }
     
+    //MARK: SUCCESS TESTS
     func testWhenSuccess() {
         sut.loadDataPokemon()
         
@@ -75,17 +76,16 @@ final class PokedexTests: XCTestCase {
         expectation.fulfill()
         
         sut.collectionView(forItemAt: IndexPath(row: sut.pokemons.count - 1, section: 0))
-        
         waitForExpectations(timeout: 1, handler: nil)
     }
     
+    //MARK: FAILURE TESTS
     func testWhenFailure() {
         serviceProtocol = MockFailure()
         sut = FeedViewModel(service: serviceProtocol)
         
         sut.loadDataPokemon()
         XCTAssertEqual(sut.state.value, .error)
-        
     }
     
     override func tearDown() {
