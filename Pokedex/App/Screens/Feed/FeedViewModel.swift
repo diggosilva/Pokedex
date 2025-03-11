@@ -22,10 +22,10 @@ enum FeedViewControllerStates {
 }
 
 class FeedViewModel: FeedViewModelProtocol {
-    private (set) var state: Bindable<FeedViewControllerStates> = Bindable(value: .loading)
+    private(set) var state: Bindable<FeedViewControllerStates> = Bindable(value: .loading)
     private var service: ServiceProtocol = Service()
-    private var pokemons: [FeedModel] = []
-    private var filteredPokemons: [FeedModel] = []
+    var pokemons: [FeedModel] = []
+    var filteredPokemons: [FeedModel] = []
     private var nextUrl: String?
     
     init(service: ServiceProtocol = Service()) {
