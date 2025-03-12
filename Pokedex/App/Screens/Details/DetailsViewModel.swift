@@ -15,12 +15,13 @@ enum DetailsViewControllerStates {
 
 class DetailsViewModel {
     private(set) var state: Bindable<DetailsViewControllerStates> = Bindable(value: .loading)
-    private var service = Service()
+    private var service: ServiceProtocol
     
     let id: Int
     
-    init(id: Int) {
+    init(id: Int, service: ServiceProtocol = Service()) {
         self.id = id
+        self.service = service
     }
     
     func loadDataDetails() {
