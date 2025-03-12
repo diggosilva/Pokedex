@@ -26,7 +26,7 @@ class FeedViewModel: FeedViewModelProtocol {
     private var service: ServiceProtocol = Service()
     var pokemons: [FeedModel] = []
     var filteredPokemons: [FeedModel] = []
-    private var nextUrl: String?
+    var nextUrl: String?
     
     init(service: ServiceProtocol = Service()) {
         self.service = service
