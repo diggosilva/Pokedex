@@ -9,7 +9,7 @@ import XCTest
 @testable import Pokedex
 
 class MockSuccess: ServiceProtocol {
-    func getPokemons(url: String, onSuccess: @escaping (String?, [FeedModel]) -> Void, onError: @escaping (any Error) -> Void) {
+    func getPokemons(url: String, onSuccess: @escaping (String?, [FeedModel]) -> Void, onError: @escaping (Error) -> Void) {
         let pokemons: [FeedModel] = [
             FeedModel(name: "Pikachu", url: "www.pikachu.com"),
             FeedModel(name: "Bulbasaur", url: "www.bulbasaur.com"),
@@ -18,29 +18,22 @@ class MockSuccess: ServiceProtocol {
         onSuccess(nil, pokemons)
     }
     
-    func getDetails(id: Int, onSuccess: @escaping (DetailModel) -> Void, onError: @escaping (any Error) -> Void) {}
+    func getDetails(id: Int, onSuccess: @escaping (DetailModel) -> Void, onError: @escaping (Error) -> Void) {}
 }
 
 class MockFailure: ServiceProtocol {
-    func getPokemons(url: String, onSuccess: @escaping (String?, [Pokedex.FeedModel]) -> Void, onError: @escaping (any Error) -> Void) {
+    func getPokemons(url: String, onSuccess: @escaping (String?, [FeedModel]) -> Void, onError: @escaping (Error) -> Void) {
         onError(NSError(domain: "Falha ao carregar Pokemons", code: -1))
     }
     
-    func getDetails(id: Int, onSuccess: @escaping (Pokedex.DetailModel) -> Void, onError: @escaping (any Error) -> Void) {}
+    func getDetails(id: Int, onSuccess: @escaping (DetailModel) -> Void, onError: @escaping (Error) -> Void) {}
 }
 
 final class PokedexTests: XCTestCase {
-    var serviceProtocol: ServiceProtocol!
-    var sut: FeedViewModel!
-    
-    override func setUp() {
-        super.setUp()
-        serviceProtocol = MockSuccess()
-        sut = FeedViewModel(service: serviceProtocol)
-    }
     
     //MARK: SUCCESS TESTS
     func testWhenSuccess() {
+        let sut = FeedViewModel(service: MockSuccess())
         sut.loadDataPokemon()
         
         let numberOfItems = sut.numberOfItemsInSection()
@@ -55,9 +48,20 @@ final class PokedexTests: XCTestCase {
         sut.state.value = .loaded
     }
     
-    func testSearchBar() {
+    func testWhenSuccessWithFailureHandling() {
+        let sut = FeedViewModel(service: MockFailure())
         sut.loadDataPokemon()
+                
+        XCTAssertEqual(sut.state.value, .error)
+        XCTAssertEqual(sut.numberOfItemsInSection(), 0)
         
+        XCTAssertEqual(sut.pokemons.count, 0)
+        XCTAssertEqual(sut.filteredPokemons.count, 0)
+    }
+    
+    func testSearchBar() {
+        let sut = FeedViewModel(service: MockSuccess())
+        sut.loadDataPokemon()
         sut.searchBar(textDidChange: "pik")
         
         XCTAssertEqual(sut.filteredPokemons.count, 1)
@@ -68,29 +72,48 @@ final class PokedexTests: XCTestCase {
     }
     
     func testCollectionViewLoadMore() {
+        // 1. Criando o serviço mock para simular sucesso no carregamento de dados
+        let sut = FeedViewModel(service: MockSuccess())
+
+        // 2. Carregar dados iniciais
         sut.loadDataPokemon()
         
-        let expectation = self.expectation(description: "Fetch request chamada")
+        // 3. Verificando se os dados iniciais foram carregados corretamente
+        XCTAssertEqual(sut.pokemons.count, 3) // Inicialmente, 3 pokémons devem ser carregados
+        XCTAssertEqual(sut.filteredPokemons.count, 3) // Verifica se a lista filtrada também contém 3 itens
+
+        // 4. Simula o carregamento de mais dados
+        let nextUrl = "https://pokeapi.co/api/v2/pokemon?limit=60&offset=60"
+        sut.nextUrl = nextUrl // Atualizando o próximo URL que será usado no "load more"
         
-        sut.fetchRequest(url: "https://pokeapi.co/api/v2/pokemon?limit=60&offset=60")
-        expectation.fulfill()
-        
+        // 5. Chama a função de "scroll" até o final
         sut.collectionView(forItemAt: IndexPath(row: sut.pokemons.count - 1, section: 0))
-        waitForExpectations(timeout: 1, handler: nil)
+        
+        // 6. Verificando se o método fetchRequest foi chamado e mais dados foram carregados
+        // Como o MockSuccess já está controlando o fluxo, podemos verificar diretamente os dados
+        XCTAssertEqual(sut.pokemons.count, 6) // Espera-se que agora haja 6 pokémons (3 iniciais + 3 carregados)
+        XCTAssertEqual(sut.filteredPokemons.count, 6) // Também a lista filtrada deve ter 6 elementos
+        
+        let lastItem = sut.cellForItemAt(indexPath: IndexPath(row: 5, section: 0))
+        XCTAssertEqual(lastItem.name, "Charmander")
     }
     
     //MARK: FAILURE TESTS
     func testWhenFailure() {
-        serviceProtocol = MockFailure()
-        sut = FeedViewModel(service: serviceProtocol)
+        let sut = FeedViewModel(service: MockFailure())
         
         sut.loadDataPokemon()
         XCTAssertEqual(sut.state.value, .error)
     }
     
-    override func tearDown() {
-        serviceProtocol = nil
-        sut = nil
-        super.tearDown()
+    func testWhenFailureWithSuccessHandling() {
+        let sut = FeedViewModel(service: MockSuccess())
+        
+        sut.loadDataPokemon()
+        
+        XCTAssertEqual(sut.state.value, .loaded)
+        
+        XCTAssertEqual(sut.filteredPokemons.count, 3)
+        XCTAssertEqual(sut.filteredPokemons.first?.name, "Pikachu")
     }
 }
