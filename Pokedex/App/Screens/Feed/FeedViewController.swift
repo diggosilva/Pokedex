@@ -6,11 +6,13 @@
 //
 
 import UIKit
+import Combine
 
 class FeedViewController: UIViewController {
     
     private let feedView = FeedView()
-    private let viewModel = FeedViewModel()
+    private let viewModel: any FeedViewModelProtocol = FeedViewModel()
+    private var cancellables = Set<AnyCancellable>()
     
     override func loadView() {
         super.loadView()
@@ -38,25 +40,26 @@ class FeedViewController: UIViewController {
     }
     
     private func handleStates() {
-        viewModel.state.bind { states in
-            switch states {
+        viewModel.statePublisher.receive(on: RunLoop.main).sink { [ weak self] state in
+            guard let self = self else { return }
+            switch state {
             case .loading:
-                return self.showLoadingState()
+                self.showLoadingState()
             case .loaded:
-                return self.showLoadedState()
+                self.showLoadedState()
             case .error:
-                return self.showErrorState()
+                self.showErrorState()
             }
-        }
+        }.store(in: &cancellables)
     }
     
     private func showLoadingState() {
-        feedView.removeFromSuperview()
+        feedView.setLoadingState()
     }
     
     private func showLoadedState() {
+        feedView.setLoadedState()
         feedView.collectionView.reloadData()
-        feedView.spinner.stopAnimating()
     }
     
     private func showErrorState() {
