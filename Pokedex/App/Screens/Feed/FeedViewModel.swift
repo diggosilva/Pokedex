@@ -6,14 +6,7 @@
 //
 
 import Foundation
-
-protocol FeedViewModelProtocol {
-    func numberOfItemsInSection() -> Int
-    func cellForItemAt(indexPath: IndexPath) -> FeedModel
-    func searchBar(textDidChange searchText: String)
-    func collectionView(forItemAt indexPath: IndexPath)
-    func loadDataPokemon()
-}
+import Combine
 
 enum FeedViewControllerStates {
     case loading
@@ -21,12 +14,30 @@ enum FeedViewControllerStates {
     case error
 }
 
+protocol StatefulViewModel {
+    associatedtype State
+    var statePublisher: AnyPublisher<State, Never> { get }
+}
+
+protocol FeedViewModelProtocol: StatefulViewModel where State == FeedViewControllerStates {
+    func numberOfItemsInSection() -> Int
+    func cellForItemAt(indexPath: IndexPath) -> FeedModel
+    func searchBar(textDidChange searchText: String)
+    func collectionView(forItemAt indexPath: IndexPath)
+    func loadDataPokemon()
+}
+
 class FeedViewModel: FeedViewModelProtocol {
-    private(set) var state: Bindable<FeedViewControllerStates> = Bindable(value: .loading)
     private var service: ServiceProtocol = Service()
     var pokemons: [FeedModel] = []
     var filteredPokemons: [FeedModel] = []
     var nextUrl: String?
+    
+    @Published private var state: FeedViewControllerStates = .loading
+    
+    var statePublisher: AnyPublisher<FeedViewControllerStates, Never> {
+        $state.eraseToAnyPublisher()
+    }
     
     init(service: ServiceProtocol = Service()) {
         self.service = service
@@ -66,13 +77,19 @@ class FeedViewModel: FeedViewModelProtocol {
     }
     
     func fetchRequest(url: String) {
-        service.getPokemons(url: url) { nextUrl, pokemons in
-            self.nextUrl = nextUrl
-            self.pokemons.append(contentsOf: pokemons)
-            self.filteredPokemons.append(contentsOf: pokemons)
-            self.state.value = .loaded
-        } onError: { error in
-            self.state.value = .error
+        state = .loading
+        
+        Task { @MainActor in
+            do {
+                let (nextUrl, pokemons) = try await service.getPokemons(url: url)
+                self.nextUrl = nextUrl
+                self.pokemons.append(contentsOf: pokemons)
+                self.filteredPokemons.append(contentsOf: pokemons)
+                self.state = .loaded
+            } catch {
+                print("DEBUG: Erro ao buscar os pokemons: \(error.localizedDescription)")
+                self.state = .error
+            }
         }
     }
 }
