@@ -348,6 +348,7 @@ class DetailsView: UIView {
     }
     
     private func configureImageAndLabels(detailsModel: DetailModel) {
+        nameLabel.text = detailsModel.name.capitalized
         typeLabel.text = detailsModel.types.capitalized
         hpValueLabel.text = "\(detailsModel.getHP)"
         heightValueLabel.text = "\(detailsModel.getHeight)"
