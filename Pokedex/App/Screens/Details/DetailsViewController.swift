@@ -6,20 +6,21 @@
 //
 
 import UIKit
+import Combine
 
 class DetailsViewController: UIViewController {
     
     let detailsView = DetailsView()
     let viewModel: DetailsViewModel
     
+    private var cancellables = Set<AnyCancellable>()
+    
     init(id: Int) {
         self.viewModel = DetailsViewModel(id: id)
         super.init(nibName: nil, bundle: nil)
     }
     
-    required init?(coder: NSCoder) {
-        fatalError("init(coder:) has not been implemented")
-    }
+    required init?(coder: NSCoder) { fatalError("init(coder:) has not been implemented") }
     
     override func loadView() {
         super.loadView()
@@ -29,12 +30,14 @@ class DetailsViewController: UIViewController {
     override func viewDidLoad() {
         super.viewDidLoad()
         handleStates()
-        viewModel.loadDataDetails()    
+        viewModel.loadDataDetails()
     }
     
     private func handleStates() {
-        viewModel.state.bind { states in
-            switch states {
+        viewModel.statePublisher.receive(on: RunLoop.main).sink { [weak self] state in
+            guard let self = self else { return }
+            
+            switch state {
             case .loading:
                 return self.showLoadingState()
             case .loaded(let detailModel):
@@ -42,12 +45,10 @@ class DetailsViewController: UIViewController {
             case .error:
                 return self.showErrorState()
             }
-        }
+        }.store(in: &cancellables)
     }
     
-    private func showLoadingState() {
-        detailsView.removeFromSuperview()
-    }
+    private func showLoadingState() {}
     
     private func showLoadedState(detailModel: DetailModel) {
         detailsView.configure(detailsModel: detailModel)
