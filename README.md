@@ -26,10 +26,12 @@ A iOS application written in Swift, that brings a list of pokemons using a Colle
 
 - Dark Mode
 - Modern Collection View
-- MVVM
+- MVVM with Combine
 - View Code (UIKit)
+- Await/Async Request
 - Custom elements
 - Pagination
+- Unit Tests
 
 ## Requirements
 
