@@ -8,6 +8,7 @@
 
 /* Begin PBXBuildFile section */
 		9201FAF92C029C2400C8A6C5 /* Extensions.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9201FAF82C029C2400C8A6C5 /* Extensions.swift */; };
+		922041E52E992FA7003C6F08 /* SDWebImage in Frameworks */ = {isa = PBXBuildFile; productRef = 922041E42E992FA7003C6F08 /* SDWebImage */; };
 		9294812B2C03E27500116239 /* DetailsView.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9294812A2C03E27500116239 /* DetailsView.swift */; };
 		9294812D2C03EB4B00116239 /* DetailsViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 9294812C2C03EB4B00116239 /* DetailsViewController.swift */; };
 		929BA77C2E02F0A4002C7F3C /* DetailsViewModelTests.swift in Sources */ = {isa = PBXBuildFile; fileRef = 929BA7792E02F0A4002C7F3C /* DetailsViewModelTests.swift */; };
@@ -40,11 +41,12 @@
 
 /* Begin PBXFileReference section */
 		9201FAF82C029C2400C8A6C5 /* Extensions.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Extensions.swift; sourceTree = "<group>"; };
+		922041E12E992F61003C6F08 /* Pokedex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = Pokedex.app; sourceTree = BUILT_PRODUCTS_DIR; };
+		922041E22E992F61003C6F08 /* PokedexTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; path = PokedexTests.xctest; sourceTree = BUILT_PRODUCTS_DIR; };
 		9294812A2C03E27500116239 /* DetailsView.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsView.swift; sourceTree = "<group>"; };
 		9294812C2C03EB4B00116239 /* DetailsViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewController.swift; sourceTree = "<group>"; };
 		929BA7792E02F0A4002C7F3C /* DetailsViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewModelTests.swift; sourceTree = "<group>"; };
 		929BA77A2E02F0A4002C7F3C /* FeedViewModelTests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewModelTests.swift; sourceTree = "<group>"; };
-		92A793F42C01311E0090AB8C /* Pokedex.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; name = Pokedex.app; path = "/Volumes/HDExtDiggo8tb/VOLTAR PRA MESA/SWIFT/006 HELIO/APPs/# UIKit/008 Pokedex without HERO/build/Debug-iphoneos/Pokedex.app"; sourceTree = "<absolute>"; };
 		92A793F72C01311E0090AB8C /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
 		92A793F92C01311E0090AB8C /* SceneDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = SceneDelegate.swift; sourceTree = "<group>"; };
 		92A793FB2C01311E0090AB8C /* FeedViewController.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedViewController.swift; sourceTree = "<group>"; };
@@ -57,7 +59,6 @@
 		92A794152C014F580090AB8C /* Service.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Service.swift; sourceTree = "<group>"; };
 		92A794172C0152090090AB8C /* FeedResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedResponse.swift; sourceTree = "<group>"; };
 		92A794192C0152400090AB8C /* FeedModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = FeedModel.swift; sourceTree = "<group>"; };
-		92CDB2692D805E1C0099F6D1 /* PokedexTests.xctest */ = {isa = PBXFileReference; explicitFileType = wrapper.cfbundle; includeInIndex = 0; name = PokedexTests.xctest; path = "/Volumes/HDExtDiggo8tb/VOLTAR PRA MESA/SWIFT/006 HELIO/APPs/# UIKit/008 Pokedex without HERO/build/Debug-iphoneos/Pokedex.app/PlugIns/PokedexTests.xctest"; sourceTree = "<absolute>"; };
 		92FF7AE22C05144D00A84D8A /* DetailResponse.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailResponse.swift; sourceTree = "<group>"; };
 		92FF7AE42C0520E900A84D8A /* DetailModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailModel.swift; sourceTree = "<group>"; };
 		92FF7AE62C0521BB00A84D8A /* DetailsViewModel.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = DetailsViewModel.swift; sourceTree = "<group>"; };
@@ -68,6 +69,7 @@
 			isa = PBXFrameworksBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				922041E52E992FA7003C6F08 /* SDWebImage in Frameworks */,
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 		};
@@ -105,6 +107,8 @@
 			children = (
 				92A793F62C01311E0090AB8C /* Pokedex */,
 				929BA77B2E02F0A4002C7F3C /* PokedexTests */,
+				922041E12E992F61003C6F08 /* Pokedex.app */,
+				922041E22E992F61003C6F08 /* PokedexTests.xctest */,
 			);
 			sourceTree = "<group>";
 		};
@@ -204,7 +208,7 @@
 			);
 			name = Pokedex;
 			productName = Pokedex;
-			productReference = 92A793F42C01311E0090AB8C /* Pokedex.app */;
+			productReference = 922041E12E992F61003C6F08 /* Pokedex.app */;
 			productType = "com.apple.product-type.application";
 		};
 		92CDB2682D805E1C0099F6D1 /* PokedexTests */ = {
@@ -222,7 +226,7 @@
 			);
 			name = PokedexTests;
 			productName = PokedexTests;
-			productReference = 92CDB2692D805E1C0099F6D1 /* PokedexTests.xctest */;
+			productReference = 922041E22E992F61003C6F08 /* PokedexTests.xctest */;
 			productType = "com.apple.product-type.bundle.unit-test";
 		};
 /* End PBXNativeTarget section */
@@ -253,6 +257,9 @@
 				Base,
 			);
 			mainGroup = 92A793EB2C01311E0090AB8C;
+			packageReferences = (
+				922041E32E992FA7003C6F08 /* XCRemoteSwiftPackageReference "SDWebImage" */,
+			);
 			productRefGroup = 92A793EB2C01311E0090AB8C;
 			projectDirPath = "";
 			projectRoot = "";
@@ -580,6 +587,25 @@
 			defaultConfigurationName = Release;
 		};
 /* End XCConfigurationList section */
+
+/* Begin XCRemoteSwiftPackageReference section */
+		922041E32E992FA7003C6F08 /* XCRemoteSwiftPackageReference "SDWebImage" */ = {
+			isa = XCRemoteSwiftPackageReference;
+			repositoryURL = "https://github.com/SDWebImage/SDWebImage.git";
+			requirement = {
+				kind = upToNextMajorVersion;
+				minimumVersion = 5.21.3;
+			};
+		};
+/* End XCRemoteSwiftPackageReference section */
+
+/* Begin XCSwiftPackageProductDependency section */
+		922041E42E992FA7003C6F08 /* SDWebImage */ = {
+			isa = XCSwiftPackageProductDependency;
+			package = 922041E32E992FA7003C6F08 /* XCRemoteSwiftPackageReference "SDWebImage" */;
+			productName = SDWebImage;
+		};
+/* End XCSwiftPackageProductDependency section */
 	};
 	rootObject = 92A793EC2C01311E0090AB8C /* Project object */;
 }
