@@ -9,27 +9,7 @@ import XCTest
 import Combine
 @testable import Pokedex
 
-class MockService: ServiceProtocol {
-    var isSuccess: Bool = true
-    
-    func getPokemons(url: String) async throws -> (String?, [FeedModel]) {
-        if isSuccess {
-            return ("", [
-                FeedModel(name: "Pikachu", url: "www.pikachu.com"),
-                FeedModel(name: "Bulbasaur", url: "www.bulbasaur.com"),
-                FeedModel(name: "Charmander", url: "www.charmander.com"),
-            ])
-        } else {
-            throw NSError(domain: "Error", code: 0, userInfo: nil)
-        }
-    }
-    
-    func getDetails(id: Int) async throws -> DetailModel {
-        throw NSError(domain: "Error", code: 0, userInfo: nil)
-    }
-}
-
-final class PokedexTests: XCTestCase {
+final class FeedViewModelTests: XCTestCase {
     
     private var cancellables = Set<AnyCancellable>()
     
@@ -58,7 +38,7 @@ final class PokedexTests: XCTestCase {
         
         sut.loadDataPokemon()
         
-        await fulfillment(of: [expectation], timeout: 2.0)
+        await fulfillment(of: [expectation], timeout: 1.0)
         
         let numberOfItems = sut.numberOfItemsInSection()
         XCTAssertEqual(numberOfItems, 3)
@@ -87,7 +67,7 @@ final class PokedexTests: XCTestCase {
         
         sut.loadDataPokemon()
         
-        await fulfillment(of: [expectation], timeout: 2.0)
+        await fulfillment(of: [expectation], timeout: 1.0)
                 
         XCTAssertEqual(sut.numberOfItemsInSection(), 0)
         XCTAssertEqual(sut.pokemons.count, 0)
@@ -109,7 +89,7 @@ final class PokedexTests: XCTestCase {
         
         sut.loadDataPokemon()
         
-        await fulfillment(of: [expectation], timeout: 2.0)
+        await fulfillment(of: [expectation], timeout: 1.0)
         
         sut.searchBar(textDidChange: "pik")
         
@@ -143,7 +123,7 @@ final class PokedexTests: XCTestCase {
         sut.nextUrl = "https://pokeapi.co/api/v2/pokemon?limit=60&offset=60"
         sut.collectionView(forItemAt: IndexPath(row: sut.pokemons.count - 1, section: 0)) // Carrega mais
         
-        await fulfillment(of: [expectation], timeout: 3.0)
+        await fulfillment(of: [expectation], timeout: 2.0)
         
         // Agora que ambos os carregamentos aconteceram, esses acessos são seguros
         XCTAssertEqual(sut.pokemons.count, 6)
@@ -172,7 +152,7 @@ final class PokedexTests: XCTestCase {
         
         sut.loadDataPokemon()
         
-        await fulfillment(of: [expectation], timeout: 2.0)
+        await fulfillment(of: [expectation], timeout: 1.0)
         
     }
     
@@ -191,7 +171,7 @@ final class PokedexTests: XCTestCase {
         
         sut.loadDataPokemon()
         
-        await fulfillment(of: [expectation], timeout: 2.0)
+        await fulfillment(of: [expectation], timeout: 1.0)
         
         XCTAssertEqual(sut.filteredPokemons.count, 3)
         XCTAssertEqual(sut.filteredPokemons.first?.name, "Pikachu")
