@@ -9,7 +9,7 @@ import XCTest
 import Combine
 @testable import Pokedex
 
-class Mock: ServiceProtocol {
+class MockService: ServiceProtocol {
     var isSuccess: Bool = true
     
     func getPokemons(url: String) async throws -> (String?, [FeedModel]) {
