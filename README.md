@@ -47,7 +47,7 @@ A iOS application written in Swift, that brings a list of pokemons using a Colle
 
 ## Setup
 
-First of all download and install Xcode, Cocoapods and then clone the repository:
+First of all download and install Xcode, SPM and then clone the repository:
 
 ```sh
 $ git@github.com:diggosilva/Pokedex.git
@@ -58,7 +58,7 @@ After cloning, do the following:
 ```sh
 $ cd <diretorio-base>/Pokedex/
 $ pod install
-$ open Pokedex.xcworkspace/
+$ open Pokedex.xcodeproj/
 ```
 
 ## Built With
